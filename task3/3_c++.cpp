@@ -4,15 +4,15 @@
 
 using namespace std;
 
-long long gcd(long long a, long long b) {
+long gcd(long a, long b) {
     while (b > 0) {
         a %= b;
         swap(a, b); }
     return a;
 }
 
-long long power(long long base, int exp) {
-    long long res = 1;
+long power(long base, int exp) {
+    long res = 1;
     for (int i = 0; i < exp; i++) res *= base;
     return res;
 }
@@ -25,11 +25,11 @@ int main() {
         return 0;
     }
 
-    vector<long long> c(a + 1, 0);
+    vector<long> c(a + 1, 0);
     c[1] = 1;
 
     for (int k = 1; k < a; ++k) {
-        vector<long long> next_c(a + 1, 0);
+        vector<long> next_c(a + 1, 0);
         for (int i = 1; i <= k; ++i) {
             next_c[i] += i * c[i];
             if (i + 1 <= a) {
@@ -39,14 +39,14 @@ int main() {
         c = next_c;
     }
 
-    long long numerator = 0;
+    long numerator = 0;
     for (int i = 1; i <= a; ++i) {
         numerator += c[i] * power(b, a - i);
     }
     numerator *= b;
 
-    long long denominator = power(b - 1, a + 1);
-    long long common = gcd(numerator, denominator);
+    long denominator = power(b - 1, a + 1);
+    long common = gcd(numerator, denominator);
     numerator /= common;
     denominator /= common;
 
